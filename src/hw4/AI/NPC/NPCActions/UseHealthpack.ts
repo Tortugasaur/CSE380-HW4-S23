@@ -7,22 +7,26 @@ import NPCBehavior from "../NPCBehavior";
 import NPCAction from "./NPCAction";
 import Finder from "../../../GameSystems/Searching/Finder";
 
-
 export default class UseHealthpack extends NPCAction {
-    
-    // The targeting strategy used for this GotoAction - determines how the target is selected basically
-    protected override _targetFinder: Finder<Battler>;
-    // The targets or Targetable entities 
-    protected override _targets: Battler[];
-    // The target we are going to set the actor to target
-    protected override _target: Battler | null;
+  // The targeting strategy used for this GotoAction - determines how the target is selected basically
+  protected override _targetFinder: Finder<Battler>;
+  // The targets or Targetable entities
+  protected override _targets: Battler[];
+  // The target we are going to set the actor to target
+  protected override _target: Battler | null;
 
-    public constructor(parent: NPCBehavior, actor: NPCActor) { 
-        super(parent, actor);
+  public constructor(parent: NPCBehavior, actor: NPCActor) {
+    super(parent, actor);
+  }
+
+  public performAction(target: Battler): void {
+    let hp = <Healthpack>(
+      target.inventory.find((item) => item instanceof Healthpack)
+    );
+    if (hp) {
+      target.health += hp.health;
+      this.actor.inventory.remove(hp.id);
+      this.finished();
     }
-
-    public performAction(target: Battler): void {
-
-    }
-
+  }
 }

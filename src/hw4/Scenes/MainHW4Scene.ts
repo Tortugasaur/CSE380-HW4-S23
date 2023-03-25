@@ -9,6 +9,7 @@ import Line from "../../Wolfie2D/Nodes/Graphics/Line";
 import OrthogonalTilemap from "../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import Navmesh from "../../Wolfie2D/Pathfinding/Navmesh";
 import DirectStrategy from "../../Wolfie2D/Pathfinding/Strategies/DirectStrategy";
+import DjikstraPathStrat from "../../Wolfie2D/Pathfinding/Strategies/DjikstraStrategy";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
@@ -428,6 +429,7 @@ export default class MainHW4Scene extends HW4Scene {
         
         // Add different strategies to use for this navmesh
         navmesh.registerStrategy("direct", new DirectStrategy(navmesh));
+        navmesh.registerStrategy("djik", new DjikstraPathStrat(navmesh));
         navmesh.registerStrategy("astar", new AstarStrategy(navmesh));
 
         // TODO set the strategy to use A* pathfinding
